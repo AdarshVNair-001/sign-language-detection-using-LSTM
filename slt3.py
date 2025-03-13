@@ -80,3 +80,37 @@ def extract_keypoints(results):
     lh = np.array([[res.x, res.y, res.z] for res in results.left_hand_landmarks.landmark]).flatten() if results.left_hand_landmarks else np.zeros(21*3)
     rh = np.array([[res.x, res.y, res.z] for res in results.right_hand_landmarks.landmark]).flatten() if results.right_hand_landmarks else np.zeros(21*3)
     return np.concatenate([pose, face, lh, rh])
+#folder creation
+
+# Path for exported data, numpy arrays
+DATA_PATH = os.path.join('MP_Data')  
+
+# Actions that we try to detect
+actions = np.array(['hello', 'thanks', 'iloveyou'])
+
+# Number of sequences per action
+no_sequences = 30
+
+# Frames per video
+sequence_length = 30
+
+# Loop through each action
+for action in actions: 
+    action_path = os.path.join(DATA_PATH, action)
+    
+    # Ensure the action folder exists
+    os.makedirs(action_path, exist_ok=True)
+    
+    # Handle empty directory case
+    try:
+        existing_dirs = np.array(os.listdir(action_path)).astype(int)
+        dirmax = np.max(existing_dirs) if existing_dirs.size > 0 else 0
+    except:
+        dirmax = 0  # If folder is empty
+
+    # Create new sequence directories
+    for sequence in range(1, no_sequences + 1):
+        try: 
+            os.makedirs(os.path.join(action_path, str(dirmax + sequence)), exist_ok=True)
+        except Exception as e:
+            print(f"Error creating folder {dirmax + sequence}: {e}")
