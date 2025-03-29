@@ -26,11 +26,30 @@ def mediapipe_detection(image, model):
 
 # Function to draw landmarks on the image
 def draw_landmarks(image, results):
-    # Draw face, pose, and hands landmarks
-    mp_drawing.draw_landmarks(image, results.face_landmarks, mp_holistic.FACEMESH_TESSELATION)
-    mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_holistic.POSE_CONNECTIONS)
-    mp_drawing.draw_landmarks(image, results.left_hand_landmarks, mp_holistic.HAND_CONNECTIONS)
-    mp_drawing.draw_landmarks(image, results.right_hand_landmarks, mp_holistic.HAND_CONNECTIONS)
+    # Draw face landmarks
+    mp_drawing.draw_landmarks(
+        image, results.face_landmarks, mp_holistic.FACEMESH_TESSELATION,
+        mp_drawing.DrawingSpec(color=(0, 255, 0), thickness=1, circle_radius=1),  # Green color
+        mp_drawing.DrawingSpec(color=(0, 255, 0), thickness=1, circle_radius=1)   # Green color
+    )
+    # Draw pose landmarks
+    mp_drawing.draw_landmarks(
+        image, results.pose_landmarks, mp_holistic.POSE_CONNECTIONS,
+        mp_drawing.DrawingSpec(color=(0, 255, 0), thickness=2, circle_radius=4),  # Green color
+        mp_drawing.DrawingSpec(color=(0, 255, 0), thickness=2, circle_radius=2)   # Green color
+    )
+    # Draw left hand landmarks
+    mp_drawing.draw_landmarks(
+        image, results.left_hand_landmarks, mp_holistic.HAND_CONNECTIONS,
+        mp_drawing.DrawingSpec(color=(0, 255, 0), thickness=2, circle_radius=4),  # Green color
+        mp_drawing.DrawingSpec(color=(0, 255, 0), thickness=2, circle_radius=2)   # Green color
+    )
+    # Draw right hand landmarks
+    mp_drawing.draw_landmarks(
+        image, results.right_hand_landmarks, mp_holistic.HAND_CONNECTIONS,
+        mp_drawing.DrawingSpec(color=(0, 255, 0), thickness=2, circle_radius=4),  # Green color
+        mp_drawing.DrawingSpec(color=(0, 255, 0), thickness=2, circle_radius=2)   # Green color
+    )
 
 # Function to extract keypoints from Mediapipe results
 def extract_keypoints(results):
@@ -107,8 +126,7 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
             if len(sentence) > 5:
                 sentence = sentence[-5:]
 
-            # Add probability visualization
-            image = prob_viz(res, actions, image, colors)
+            
 
         # Show recognized gesture
         cv2.rectangle(image, (0, 0), (640, 40), (245, 117, 16), -1)

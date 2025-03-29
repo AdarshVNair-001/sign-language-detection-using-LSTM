@@ -6,7 +6,7 @@ import os
 # Define the actions to be detected
 try:
 
-    actions = ['hello', 'thanks', 'iloveyou']
+    actions = ['hello', 'thanks', 'iloveyou', 'A', 'B', 'C']
     DATA_PATH = "MP_Data"
 
 except ImportError:
@@ -81,5 +81,5 @@ np.save('X_test.npy', X_test)
 np.save('y_train.npy', y_train)
 np.save('y_test.npy', y_test)
 np.save('actions.npy', np.array(actions))
-
+print("Data saved successfully")
 

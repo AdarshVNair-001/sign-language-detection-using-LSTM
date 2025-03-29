@@ -54,10 +54,10 @@ def extract_keypoints(results):
 DATA_PATH = os.path.join('MP_Data')
 
 # Actions to detect
-actions = np.array(['hello', 'thanks', 'iloveyou'])
+actions = np.array(['hello', 'thanks', 'iloveyou','A','B','C'])
 
 # Number of sequences per action
-no_sequences = 30
+no_sequences = 3
 
 # Frames per video
 sequence_length = 30
